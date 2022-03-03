@@ -27,8 +27,8 @@ def call(String repoUrl){
                always {
                  junit 'target/surefire-reports/*.xml'
                  jacoco execPattern: 'target/jacoco.exec'
-        }
-      }
+         }
+       }
     }       
       stage('Mutation Tests - PIT') {
          steps {
