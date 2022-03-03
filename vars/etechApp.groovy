@@ -5,7 +5,8 @@ def call(String repoUrl){
 	stages{
 		stage('git-clone'){
 			steps{
-			     checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-check', url: ' https://github.com/Favouredd/etechApp ']]])	
+			     checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-check', url: "$(repoUrl)"]]]),
+				    url:"$(repoUrl)"
 			}
 		}
 		stage('etech-hello'){
