@@ -11,8 +11,8 @@ def call(String repoUrl){
 		stage('etech-hello'){
 			steps{
 				sh 'git version'
-			}
-		}
+	    }
+         }
        stage('Build Artifact - Maven') {
           steps {
             sh "mvn clean package -DskipTests=true"
