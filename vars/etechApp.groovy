@@ -1,4 +1,4 @@
-def call String repoUrl){
+def call(String repoUrl){
   pipeline {
 	agent any
 	tools {maven 'Maven'}
