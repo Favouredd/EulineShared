@@ -3,16 +3,7 @@ def call(String repoUrl){
 	agent any
 	tools {maven 'Maven'}
 	stages{
-		stage('git-clone'){
-			steps{
-			     checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-check', url: ]]])
-			}
-		}
-		stage('etech-hello'){
-			steps{
-				sh 'git version'
-	    }
-         }
+		
        stage('Build Artifact - Maven') {
           steps {
             sh "mvn clean package -DskipTests=true"
