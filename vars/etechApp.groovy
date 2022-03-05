@@ -3,7 +3,17 @@ def call(String repoUrl){
 	agent any
 	tools {maven 'Maven'}
 	stages{
-	       stage('Build Artifact - Maven') {
+		stage('git-clone'){
+			steps{
+			     checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-check', url: 'https://github.com/Favouredd/module2_ci.git']]])	
+			}
+		}
+		stage('etech-hello'){
+			steps{
+				sh 'git version'
+			}
+		}
+       stage('Build Artifact - Maven') {
           steps {
             sh "mvn clean package -DskipTests=true"
             archive 'target/*.jar'
@@ -17,9 +27,9 @@ def call(String repoUrl){
                always {
                  junit 'target/surefire-reports/*.xml'
                  jacoco execPattern: 'target/jacoco.exec'
-         }
-       }
-    }       
+        }
+     }
+   }       
       stage('Mutation Tests - PIT') {
          steps {
            sh "mvn org.pitest:pitest-maven:mutationCoverage"
@@ -36,7 +46,14 @@ def call(String repoUrl){
   -Dsonar.projectKey=devsecops-spring2-app \
   -Dsonar.host.url=http://azuredemo1.eastus.cloudapp.azure.com:9000 \
   -Dsonar.login=674c734985e4d9a6a99bb7d3ee5494e93b09ccc2'
-   }     
+    }     
   }
  }
 }
+		
+		
+		
+		
+		
+		
+		
